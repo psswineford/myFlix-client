@@ -22744,6 +22744,12 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
+var _starwarsjpgJpeg = require("../images/starwarsjpg.jpeg");
+var _starwarsjpgJpegDefault = parcelHelpers.interopDefault(_starwarsjpgJpeg);
+var _duneJpeg = require("../images/dune.jpeg");
+var _duneJpegDefault = parcelHelpers.interopDefault(_duneJpeg);
+var _matrixJpg = require("../images/matrix.jpg");
+var _matrixJpgDefault = parcelHelpers.interopDefault(_matrixJpg);
 class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
@@ -22753,19 +22759,19 @@ class MainView extends _reactDefault.default.Component {
                     _id: 1,
                     Title: 'Star Wars',
                     Description: 'Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empires world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vader.',
-                    ImagePath: '/images/starwarsjpg.jpeg'
+                    ImagePath: _starwarsjpgJpegDefault.default
                 },
                 {
                     _id: 2,
                     Title: 'Dune (2021)',
                     Description: 'Feature adaptation of Frank Herberts science fiction novel, about the son of a noble family entrusted with the protection of the most valuable asset and most vital element in the galaxy',
-                    ImagePath: '...'
+                    ImagePath: _duneJpegDefault.default
                 },
                 {
                     _id: 3,
                     Title: 'Matrix',
                     Description: 'When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.',
-                    ImagePath: '...'
+                    ImagePath: _matrixJpgDefault.default
                 }
             ],
             selectedMovie: null
@@ -22782,7 +22788,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 29
+                lineNumber: 32
             },
             __self: this,
             children: "The list is empty!"
@@ -22791,7 +22797,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 32
+                lineNumber: 35
             },
             __self: this,
             children: selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
@@ -22801,7 +22807,7 @@ class MainView extends _reactDefault.default.Component {
                 },
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 34
+                    lineNumber: 37
                 },
                 __self: this
             }) : movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
@@ -22811,7 +22817,7 @@ class MainView extends _reactDefault.default.Component {
                     },
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 36
+                        lineNumber: 39
                     },
                     __self: this
                 }, movie._id)
@@ -22825,7 +22831,7 @@ class MainView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","@parcel/transformer-js/src/esmodule-helpers.js":"5NiRr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"86X80"}],"6EiBJ":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","../movie-card/movie-card":"6EiBJ","../movie-view/movie-view":"ikZdr","../images/starwarsjpg.jpeg":"d1UHj","@parcel/transformer-js/src/esmodule-helpers.js":"5NiRr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"86X80","../images/dune.jpeg":"AzSly","../images/matrix.jpg":"33SZ3"}],"6EiBJ":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -23048,6 +23054,8 @@ class MovieView extends _reactDefault.default.Component {
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx("img", {
                         src: movie.ImagePath,
+                        width: "200",
+                        height: "300",
                         __source: {
                             fileName: "src/components/movie-view/movie-view.jsx",
                             lineNumber: 9
@@ -23132,6 +23140,50 @@ class MovieView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"5NiRr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"86X80"}],"jUTZ8":[function() {},{}]},["2x7Fn","4sspo","dLPEP"], "dLPEP", "parcelRequireaec4")
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"5NiRr","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"86X80"}],"d1UHj":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "starwarsjpg.04c2cf0b.jpeg";
+
+},{"./helpers/bundle-url":"fDSeo"}],"fDSeo":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"AzSly":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "dune.d8655ffa.jpeg";
+
+},{"./helpers/bundle-url":"fDSeo"}],"33SZ3":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('3VpAv') + "matrix.f03dd29c.jpg";
+
+},{"./helpers/bundle-url":"fDSeo"}],"jUTZ8":[function() {},{}]},["2x7Fn","4sspo","dLPEP"], "dLPEP", "parcelRequireaec4")
 
 //# sourceMappingURL=index.6701a6e1.js.map
