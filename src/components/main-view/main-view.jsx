@@ -1,22 +1,36 @@
 import React from 'react';
+import axios from 'axios';
+import {LoginView} from '../login-view/login-view';
+import {RegisterView} from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-import starwarsImage from '../images/starwarsjpg.jpeg';
-import duneImage from '../images/dune.jpeg';
-import matrixImage from '../images/matrix.jpg';
+
+// import starwarsImage from '../images/starwarsjpg.jpeg';
+// import duneImage from '../images/dune.jpeg';
+// import matrixImage from '../images/matrix.jpg';
 
 export class MainView extends React.Component {
 
     constructor(){
         super();
         this.state = {
-          movies: [
-            { _id: 1, Title: 'Star Wars', Description: 'Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empires world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vader.', ImagePath: starwarsImage},
-            { _id: 2, Title: 'Dune (2021)', Description: 'Feature adaptation of Frank Herberts science fiction novel, about the son of a noble family entrusted with the protection of the most valuable asset and most vital element in the galaxy', ImagePath: duneImage},
-            { _id: 3, Title: 'Matrix', Description: 'When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.', ImagePath: matrixImage}
-          ],
-          selectedMovie: null
+          movies: [],
+          selectedMovie: null,
+          user: null,
+          register: null
         };
+      }
+
+      componentDidMount() {
+        axios.get('https://patricks-movie-api.herokuapp.com/movies')
+        .then(response => {
+          this.setState({
+            movies: response.data
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
       }
 
       setSelectedMovie(newSelectedMovie) {
@@ -25,11 +39,26 @@ export class MainView extends React.Component {
         });
       }
 
+      onRegister(register) {
+        this.setState({
+          register
+        });
+      }
+
+      onLoggedIn(user) {
+        this.setState({
+          user
+        });
+      }
+
       render() {
-        const { movies, selectedMovie } = this.state;
+        const { movies, selectedMovie, user, register} = this.state;
+
+        //if (!register) return <RegisterView onRegister={register => this.onLoggedIn(register)}/>;
+        
+        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
     
-    
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+        if (movies.length === 0) return <div className="main-view" />;
     
         return (
           <div className="main-view">
