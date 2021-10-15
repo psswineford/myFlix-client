@@ -12,6 +12,9 @@ class MyFlixApplication extends React.Component {
   render() {
     return (
       <Container>
+        <header>
+          <h1>MyFlix</h1>
+        </header>
         <MainView />
       </Container>
     );
