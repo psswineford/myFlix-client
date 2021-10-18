@@ -7,10 +7,6 @@ import { MovieView } from '../movie-view/movie-view';
 import Row from 'react-bootstrap/Row';
 import { Col } from 'react-bootstrap';
 
-// import starwarsImage from '../images/starwarsjpg.jpeg';
-// import duneImage from '../images/dune.jpeg';
-// import matrixImage from '../images/matrix.jpg';
-
 export class MainView extends React.Component {
 
     constructor(){

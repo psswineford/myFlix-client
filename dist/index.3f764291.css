@@ -1,4 +1,7 @@
-
+.card-img-top {
+  max-height: 370px;
+  max-width: fit-content;
+}
 
 .my-flix {
   color: steelblue;
