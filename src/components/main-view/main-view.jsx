@@ -7,6 +7,7 @@ import { MovieView } from '../movie-view/movie-view';
 import Row from 'react-bootstrap/Row';
 import { Col } from 'react-bootstrap';
 
+
 export class MainView extends React.Component {
 
     constructor(){
@@ -20,15 +21,13 @@ export class MainView extends React.Component {
       }
 
       componentDidMount() {
-        axios.get('https://patricks-movie-api.herokuapp.com/movies')
-        .then(response => {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
           this.setState({
-            movies: response.data
+            user: localStorage.getItem('user')
           });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+          this.getMovies(accessToken);
+        }
       }
 
       setSelectedMovie(newSelectedMovie) {
@@ -43,9 +42,37 @@ export class MainView extends React.Component {
         });
       }
 
-      onLoggedIn(user) {
+      onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-          user
+          user: authData.user.Username
+        });
+      
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
+      }
+
+      onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+          user: null
+        });
+      }
+
+      getMovies(token) {
+        axios.get('https://patricks-movie-api.herokuapp.com/movies', {
+          headers: {Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+          // Assign the result to state
+          this.setState({
+            movies: response.data
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
         });
       }
 
@@ -79,6 +106,7 @@ export class MainView extends React.Component {
                 </Row>
               )
             }
+            <button onClick={() => { this.onLoggedOut() }}>Logout</button>
           </div>
         );
       }
