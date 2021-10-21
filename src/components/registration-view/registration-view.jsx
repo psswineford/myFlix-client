@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Card } from "react-bootstrap";
+import axios from 'axios';
 
 export function RegisterView(props) {
   const [username, setUsername] = useState('');
@@ -12,7 +13,7 @@ export function RegisterView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('YOUR_API_URL/users', {
+    axios.post('https://patricks-movie-api.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
@@ -69,5 +70,5 @@ RegisterView.propTypes = {
     Email: PropTypes.string.isRequired,
     Birthday: PropTypes.string.isRequired
   }),
-  onRegister: PropTypes.func.isRequired
+  //onRegister: PropTypes.func.isRequired
 };
