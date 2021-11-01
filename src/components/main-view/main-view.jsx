@@ -1,14 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import { LoginView } from '../login-view/login-view';
 import { RegisterView } from '../registration-view/registration-view';
+import { ProfileView } from '../profile-view/profile-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { Navbar } from '../navbar-view/navbar';
 import Row from 'react-bootstrap/Row';
-import { Col, Navbar } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+
+import "./main-view.scss";
 
 
 export class MainView extends React.Component {
@@ -17,7 +23,7 @@ export class MainView extends React.Component {
     super();
     this.state = {
       movies: [],
-      user: null
+      user: null,     
     };
   }
 
@@ -33,7 +39,7 @@ export class MainView extends React.Component {
 
   onRegister(register) {
     this.setState({
-      register: register
+      register
     });
   }
 
@@ -56,6 +62,8 @@ export class MainView extends React.Component {
     });
   }
 
+  
+
   getMovies(token) {
     axios.get('https://patricks-movie-api.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
@@ -72,14 +80,16 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user } = this.state;
+    const { movies, user} = this.state;  
+    //console.log("render", user);
+    
     return (
       <Router>
         <Navbar user={user} />
+
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
-            if (!user) return
-            <Col>
+            if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
@@ -96,9 +106,14 @@ export class MainView extends React.Component {
             </Col>
           }} />
 
+          <Route path="/profile" render={() => {
+                      if (!user) return <Col>
+                        <ProfileView username={username} movies={movies} favoriteMovies={favoriteMovies}/>
+                      </Col>
+                    }} />
+
           <Route path="/movies/:movieId" render={({ match, history }) => {
-            if (!user) return
-            <Col>
+            if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             if (movies.length === 0) return <div className="main-view" />;
@@ -107,8 +122,7 @@ export class MainView extends React.Component {
             </Col>
           }} />
           <Route path="/directors/:name" render={({ match, history }) => {
-            if (!user) return
-            <Col>
+            if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
 
@@ -116,11 +130,9 @@ export class MainView extends React.Component {
             return <Col md={8}>
               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
             </Col>
-          }
-          } />
-          <Route path="/genres/:name" render={({ match }) => {
-            if (!user) return
-            <Col>
+          }} />
+          <Route path="/genres/:name" render={({ match, history }) => {
+            if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
 
@@ -131,6 +143,12 @@ export class MainView extends React.Component {
           }
           } />
 
+          <Route exact path='/users/:username' render={({ history }) => {
+            if (!user) return <LoginView onLoggedIn={(data) => this.onLoggedIn(data)} />;
+            if (movies.length === 0) return;
+            return <ProfileView history={history} movies={movies} onBackClick={() => history.goBack()} />
+          }} />
+
 
         </Row>
 
@@ -138,6 +156,4 @@ export class MainView extends React.Component {
 
     );
   }
-
-
 }
