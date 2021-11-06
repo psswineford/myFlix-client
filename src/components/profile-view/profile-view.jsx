@@ -6,7 +6,10 @@ export class ProfileView extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: null,
+      Username: null,
+      Password: null,
+      Email: null,
+      Birthday: null,
       favoriteMovies: []
     }
   }
@@ -57,71 +60,53 @@ export class ProfileView extends React.Component {
       });
   }
 
-  handleUpdate(e, username, password, email, birthday) {
-    this.setState({
-      validated: null,
-    });
-
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.setState({
-        validated: true,
-      });
-      return;
-    }
+  handleUpdate(e) {    
     e.preventDefault();
 
     const token = localStorage.getItem("token");
+    const username = localStorage.getItem("user");
     console.log({username});
     console.log(token);
 
-    axios
-    .put(`https://patricks-movie-api.herokuapp.com/users/${username}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      data: {
+    axios.put(`https://patricks-movie-api.herokuapp.com/users/${username}`,
+      {
         Username: this.state.Username,
-        Password: this.state.Password,
+        //Password: this.state.Password,
         Email: this.state.Email,
-        Birthday: this.state.Birthday,
+        Birthday: this.state.Birthday
       },
-    })
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      })
     .then((response) => {
-      alert("Saved Changes");
+      
       this.setState({
         Username: response.data.Username,
-        Password: response.data.Password,
+        //Password: response.data.Password,
         Email: response.data.Email,
         Birthday: response.data.Birthday,
       });
+
       localStorage.setItem("user", this.state.Username);
-      window.open(`/users/${username}`, "_self");
+      const data = response.data;
+      console.log(data);
+      console.log(this.state.Username)
+      //window.open(`/users/${username}`, "_self");
+      alert("Saved Changes");
+
     })
     .catch(function (error) {
       console.log(error);
     });
   }
 
-  setUsername(input) {
-    this.Username = input;
-  }
-
-  setPassword(input) {
-    this.Password = input;
-  }
-
-  setBirthday(input) {
-    this.Birthday = input;
-  }
-
-  setEmail(input) {
-    this.Email = input;
+  changeInput(name, input) {
+    this.setState({[name]: input})
   }
 
   render() {
-    const { favoriteMovies } = this.state
-    const { Username, Password, Email, Birthday } = this.state;
+    const { favoriteMovies, validated } = this.state
+    const { Username, Email, Birthday } = this.state;
     const { movies, movie_id } = this.props;
     //console.log({Username});
     //console.log({favoriteMovies});
@@ -136,7 +121,6 @@ export class ProfileView extends React.Component {
 
               <ListGroup className="list-group-flush">
                 <ListGroupItem>Username: {Username} </ListGroupItem>
-                <ListGroupItem>Password: {Password} </ListGroupItem>
                 <ListGroupItem>Email: {Email} </ListGroupItem>
                 <ListGroupItem>Birthdate: {Birthday} </ListGroupItem>
 
@@ -148,46 +132,33 @@ export class ProfileView extends React.Component {
             <Card>
               <Card.Title>Update Your Profile</Card.Title>
               <Form className="update-form" onSubmit={(e) =>
-                                this.handleUpdate(
-                                  e,
-                                  this.Username,
-                                  this.Password,
-                                  this.Email,
-                                  this.Birthdate
-                                )
+                                this.handleUpdate(e)
                               }>
                 <Form.Group controlId="formUsername">
                   <Form.Label>Username:</Form.Label>
                   <Form.Control type="text" onChange={(e) =>
-                                    this.setUsername(e.target.value)
-                                  } placeholder="Change your username"/>
-                </Form.Group>
-
-                <Form.Group controlId="formPassword">
-                  <Form.Label>Password:</Form.Label>
-                  <Form.Control type="password" onChange={(e) =>
-                                    this.setPassword(e.target.value)
-                                  }placeholder="Change your password"/>
+                                    this.changeInput('Username', e.target.value)
+                                  } placeholder="Change your username" value={this.state.Username}/>
                 </Form.Group>
 
                 <Form.Group controlId="formEmail">
                   <Form.Label>Email:</Form.Label>
                   <Form.Control type="email" onChange={(e) =>
-                                    this.setEmail(e.target.value)
-                                  } placeholder="Change your email"/>
+                                    this.changeInput('Email', e.target.value)
+                                  } placeholder="Change your email" value={this.state.Email}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBirthday">
                   <Form.Label>Birthday:</Form.Label>
                   <Form.Control type="date" onChange={(e) =>
-                                    this.setBirthday(e.target.value)
-                                  } placeholder="Birthday"/>
+                                    this.changeInput('Birthday', e.target.value)
+                                  } placeholder="Birthday" value={this.state.Email}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
                   Update
                 </Button>
-
+                  
               </Form>
 
             </Card>
