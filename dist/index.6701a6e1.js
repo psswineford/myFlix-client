@@ -40195,7 +40195,7 @@ class ProfileView extends _reactDefault.default.Component {
                                                         onChange: (e)=>this.changeInput('Birthday', e.target.value)
                                                         ,
                                                         placeholder: "Birthday",
-                                                        value: this.state.Email,
+                                                        value: this.state.Birthday,
                                                         __source: {
                                                             fileName: "src/components/profile-view/profile-view.jsx",
                                                             lineNumber: 153

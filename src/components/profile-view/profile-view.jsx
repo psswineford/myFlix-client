@@ -152,7 +152,7 @@ export class ProfileView extends React.Component {
                   <Form.Label>Birthday:</Form.Label>
                   <Form.Control type="date" onChange={(e) =>
                                     this.changeInput('Birthday', e.target.value)
-                                  } placeholder="Birthday" value={this.state.Email}/>
+                                  } placeholder="Birthday" value={this.state.Birthday}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
