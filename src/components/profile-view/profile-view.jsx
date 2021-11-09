@@ -6,10 +6,9 @@ export class ProfileView extends React.Component {
   constructor() {
     super();
     this.state = {
-      Username: null,
-      Password: null,
-      Email: null,
-      Birthday: null,
+      Username: "",
+      Email: "",
+      Birthday: "",
       favoriteMovies: []
     }
   }
@@ -29,7 +28,6 @@ export class ProfileView extends React.Component {
       .then((response) => {
         this.setState({
           Username: response.data.Username,
-          Password: response.data.Password,
           Email: response.data.Email,
           Birthday: response.data.Birthday,
           favoriteMovies: response.data.FavoriteMovies,
@@ -71,7 +69,6 @@ export class ProfileView extends React.Component {
     axios.put(`https://patricks-movie-api.herokuapp.com/users/${username}`,
       {
         Username: this.state.Username,
-        //Password: this.state.Password,
         Email: this.state.Email,
         Birthday: this.state.Birthday
       },
@@ -82,7 +79,6 @@ export class ProfileView extends React.Component {
       
       this.setState({
         Username: response.data.Username,
-        //Password: response.data.Password,
         Email: response.data.Email,
         Birthday: response.data.Birthday,
       });
@@ -91,7 +87,6 @@ export class ProfileView extends React.Component {
       const data = response.data;
       console.log(data);
       console.log(this.state.Username)
-      //window.open(`/users/${username}`, "_self");
       alert("Saved Changes");
 
     })

@@ -107,10 +107,19 @@ export class MainView extends React.Component {
           }} />
 
           <Route path="/profile" render={() => {
-                      if (!user) return <Col>
-                        <ProfileView username={username} movies={movies} favoriteMovies={favoriteMovies}/>
-                      </Col>
-                    }} />
+                      if (user) {
+                        return (
+                          <ProfileView username={user?.username} movies={movies} />
+                        );
+                      } else {
+                        return (
+                          <Col>
+                            <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                          </Col>
+                        );
+                      }
+                    }}
+                  />
 
           <Route path="/movies/:movieId" render={({ match, history }) => {
             if (!user) return <Col>
@@ -121,6 +130,7 @@ export class MainView extends React.Component {
               <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
             </Col>
           }} />
+
           <Route path="/directors/:name" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -131,6 +141,7 @@ export class MainView extends React.Component {
               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
             </Col>
           }} />
+          
           <Route path="/genres/:name" render={({ match, history }) => {
             if (!user) return <Col>
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
