@@ -14,11 +14,10 @@ import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
 import { RegisterView } from '../registration-view/registration-view';
 import { ProfileView } from '../profile-view/profile-view';
-// import { MovieCard } from '../movie-card/movie-card'; --- will be used in MoviesList Component delete later
-import { MovieView } from '../movie-view/movie-view';
+// import { MovieCard } from '../movie-card/movie-card'; saved for reference getting data with redux now
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import { Navbar } from '../navbar-view/navbar';
+import { NavBar } from '../navbar-view/navbar';
 import Row from 'react-bootstrap/Row';
 import { Col } from 'react-bootstrap';
 
@@ -92,7 +91,7 @@ export class MainView extends React.Component {
     
     return (
       <Router>
-        <Navbar user={user} />
+        <NavBar user={user} />
 
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
