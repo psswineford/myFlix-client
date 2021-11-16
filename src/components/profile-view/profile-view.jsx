@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { Button, Card, Col, Form, Row, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { setUser, updateUser } from '../../actions/actions';
+import { connect } from 'react-redux';
 
 export class ProfileView extends React.Component {
   constructor() {
@@ -228,4 +230,12 @@ export class ProfileView extends React.Component {
   }
 }
 
-export default ProfileView
+let mapStateToProps = state => {
+  return {
+    user: state.user,
+    movies: state.movies
+  }
+}
+
+//export default ProfileView
+export default connect(mapStateToProps, {setUser, updateUser})(ProfileView);
